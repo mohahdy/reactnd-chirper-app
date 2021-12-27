@@ -5,5 +5,7 @@ export default function tweets (state={}, action){
     case RECEIVE_TWEETS:
     return{...state,
     ...action.tweets}
+    default:
+    return state
   }
 }

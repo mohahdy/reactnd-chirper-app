@@ -18,3 +18,9 @@ If you feel like there's a major problem, please open an issue to discuss the pr
 ## License
 
 MIT
+
+# Error Messages received during the Project and their solutions References
+Module not found: Can't resolve 'rect-redux' in 'C:\Users\mahdy\Documents\GitHub\reactnd-chirper-app\src'
+https://reactjs.org/warnings/invalid-hook-call-warning.html
+## Solution:
+Reinstalled react react-dom react-redux with the correct version then an important step that was stepped to restart npm after reinstalling new packages
