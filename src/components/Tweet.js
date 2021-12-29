@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {formatTweet} from '../utils/helpers'
+import {formatDate} from '../utils/helpers'
 import {BsReply} from 'react-icons/bs'
 import {FaRegHeart} from 'react-icons/fa'
+import {TiHeartFullOutline} from 'react-icons/ti'
+
 class Tweet extends Component {
   render(){
     console.log ("tweet props: ",this.props)
@@ -10,26 +13,32 @@ class Tweet extends Component {
     if (tweet=== null){
       return(<p>Tweet Not Available</p>)
     }
-    const {avatar,name, text,parent} = tweet
+    const {avatar,name, text,parent, likes, hasLiked,replies, timestamp} = tweet
     return(
       <div className="tweet">
         <img className='avatar'
-        src={avatar}/>
+        src={avatar}
+        alt={`Avatar of ${name}`}/>
         <div className="tweet-info">
-
-        {name}
-        </div>
-        <div className="tweet-info">
-        {text}
-        </div>
+        <span>{name}</span>
+        <span>{formatDate(timestamp)}</span>
         {parent?
-        <div className="tweet-info">Replying to @{parent.author}</div>:<div></div>
+        <span className="replying-to">Replying to @{parent.author}</span>:<div></div>
       }
-        <hr/>
-        <div className = "tweet-icons">
-        <span className="tweet-icon"><BsReply /></span>
-        <span className="tweet-icon"><FaRegHeart /></span>
-        </div>
+      <p>{text}</p>
+      <div className = "tweet-icons">
+      <span className="tweet-icon">
+        <BsReply />
+        {replies?replies:''}
+      </span>
+
+      {hasLiked?  <span className="tweet-icon"><TiHeartFullOutline color = "red"/></span>:
+      <span className="tweet-icon"><FaRegHeart /></span>}
+      {likes?likes:''}
+
+      </div>
+      </div>
+
       </div>
     )
   }
