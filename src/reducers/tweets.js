@@ -5,7 +5,15 @@ export default function tweets (state={}, action){
     case RECEIVE_TWEETS:
     return{...state,
     ...action.tweets}
+    case TOGGLE_TWEET:
+      return{...state,
+        [action.id]: {
+          ...state[action.id],
+          hasLiked: hasLiked? 
+        }
+      }
     default:
     return state
+
   }
 }
