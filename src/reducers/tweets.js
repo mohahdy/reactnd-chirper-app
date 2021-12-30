@@ -1,5 +1,5 @@
 import {RECEIVE_TWEETS} from '../actions/tweets'
-
+import {TOGGLE_TWEET} from '../actions/tweets'
 export default function tweets (state={}, action){
   switch(action.type){
     case RECEIVE_TWEETS:
@@ -9,7 +9,8 @@ export default function tweets (state={}, action){
       return{...state,
         [action.id]: {
           ...state[action.id],
-          hasLiked: hasLiked? 
+          likes:action.hasLiked?state[action.id].likes.filter(like => like!==action.authedUser):
+          state[action.id].likes.concat(action.authedUser)
         }
       }
     default:

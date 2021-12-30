@@ -7,21 +7,23 @@ export function receiveTweets (tweets){
         tweets
     }
   }
-export function toggleTweet({authedUser, hasliked, id}){
+export function toggleTweet({authedUser, hasLiked, id}){
   return {
     type: TOGGLE_TWEET,
     authedUser,
-    hasliked,
+    hasLiked,
     id
   }
 }
 
 export function handleToggleTweet(info) {
-  return (dispatch) => {
+
+  return (dispatch) =>{
     dispatch(toggleTweet(info))
     return saveLikeToggle(info).catch((e)=>{
-      console.warn('error')
+      console.warn('error',e)
       dispatch(toggleTweet(info))
+      alert ("error")
     }
 
     )

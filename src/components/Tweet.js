@@ -4,12 +4,21 @@ import {formatTweet} from '../utils/helpers'
 import {formatDate} from '../utils/helpers'
 import {BsReply} from 'react-icons/bs'
 import {FaRegHeart} from 'react-icons/fa'
-import {TiHeartFullOutline} from 'react-icons/ti'
+import {FaHeart} from 'react-icons/fa'
+import {handleToggleTweet} from '../actions/tweets'
+
 
 class Tweet extends Component {
+
+ toggleLike= (e)=>{
+    e.preventDefault()
+    const {authedUser, tweet, dispatch} = this.props;
+    dispatch (handleToggleTweet({authedUser, id:tweet.id, hasLiked:tweet.hasLiked}))
+  }
   render(){
-    console.log ("tweet props: ",this.props)
     const {tweet} = this.props
+
+    console.log ("tweet props: ",this.props)
     if (tweet=== null){
       return(<p>Tweet Not Available</p>)
     }
@@ -25,21 +34,30 @@ class Tweet extends Component {
         {parent?
         <span className="replying-to">Replying to @{parent.author}</span>:<div></div>
       }
+      <span>
       <p>{text}</p>
-      <div className = "tweet-icons">
+      </span>
+      <div>
+      <div className="tweet-icons">
       <span className="tweet-icon">
         <BsReply />
         {replies?replies:''}
-      </span>
+        </span>
 
-      {hasLiked?  <span className="tweet-icon"><TiHeartFullOutline color = "red"/></span>:
-      <span className="tweet-icon"><FaRegHeart /></span>}
+<span className="tweet-icon">
+      {hasLiked? <FaHeart color = "red" onClick={this.toggleLike}/>:
+      <FaRegHeart onClick={this.toggleLike}/>}
       {likes?likes:''}
+      </span>
+      </div>
 
       </div>
       </div>
 
       </div>
+
+
+
     )
   }
 }
