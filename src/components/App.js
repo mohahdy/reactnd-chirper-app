@@ -4,6 +4,8 @@ import {handleInitialData} from '../actions/shared'
 import Dashboard from './Dashboard'
 import NewTweet from './NewTweet'
 import LoadingBar from 'react-redux-loading-bar'
+import TweetPage from './TweetPage'
+import Nav from './Nav'
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialData())
@@ -13,8 +15,9 @@ class App extends Component {
 
       <div>
         <LoadingBar/>
+        <Nav/>
       {this.props.authedUser===null?null:
-        <NewTweet/>
+        <TweetPage match ={{params:{id:"hbsc73kzqi75rg7v1e0i6a"}}}/>
       }
       </div>
 
