@@ -7,12 +7,12 @@ class Nav extends Component {
             <div className="nav">
                 <ul>
                     <li>
-                       <Link exact to="/">
+                       <Link to="/">
                        Home
                         </Link>
                     </li>
                     <li>
-                    <Link exact to="/new">
+                    <Link  to="/new">
                        New Tweet
                     </Link>
                     </li>

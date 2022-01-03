@@ -1,37 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Tweet from './Tweet';
 import NewTweet from './NewTweet'
-class TweetPage extends Component {
-    render() {
+import {useParams} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+function TweetPage(props) {
+    const { id } = useParams();
+    const replies = useSelector((state) => state.tweets[id].replies);
+
         return (
 
             <div className="center">
                 <h3> TWEET</h3>
-                <Tweet id={this.props.id} />
-                <NewTweet id={this.props.id} />
+                <Tweet id={id} />
+                <NewTweet id={id} />
                 
                
-               {this.props.replies.map(reply => (<Tweet id={reply} />))}
+               {replies.map(reply => (<Tweet key={reply} id={reply} />))}
                     
             
             </div>)
         
     
-}
-}
-
-function mapStateToProps({ tweets, users, authedUser }, props) {
-    const { id } = props.match.params;
-
-    return {
-        id,
-        replies: tweets[id].replies,
-        authedUser
-    }
-
-
-
 
 }
-export default connect(mapStateToProps)(TweetPage);
+
+export default connect()(TweetPage);

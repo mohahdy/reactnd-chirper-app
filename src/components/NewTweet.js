@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {handleAddTweet} from '../actions/tweets'
 import {connect} from 'react-redux'
+import {Navigate} from 'react-router-dom'
 class NewTweet extends Component {
   state = {
-    text:''
+    text:'',
+    home: false,
   }
   handleChange = (e) => {
     const text = e.target.value;
@@ -13,13 +15,15 @@ class NewTweet extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     console.log('submitted text: ', this.state.text)
-    this.setState(()=>({text:''}))
+    this.setState(()=>({text:'', home: true}))
     this.props.dispatch(handleAddTweet(this.state.text, this.props.id))
   }
 
   render() {
-    const {text} = this.state
+    const {text, home} = this.state
     return(
+      home ?
+      <Navigate to = '/'/>:
       <div className="center">
       <h3>New Tweet</h3>
         <form className = "new-tweet">

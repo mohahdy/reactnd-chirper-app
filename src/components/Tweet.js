@@ -6,15 +6,28 @@ import {BsReply} from 'react-icons/bs'
 import {FaRegHeart} from 'react-icons/fa'
 import {FaHeart} from 'react-icons/fa'
 import {handleToggleTweet} from '../actions/tweets'
+import {Link,Navigate} from 'react-router-dom'
 
+ 
 
 class Tweet extends Component {
+
+  state ={parent:false,
+  parentID:null}
+
+  toParent = (e,id)=>{
+    e.preventDefault();
+  this.setState({parent:true,
+  parentID:id})
+  }
+
 
  toggleLike= (e)=>{
     e.preventDefault()
     const {authedUser, tweet, dispatch} = this.props;
     dispatch (handleToggleTweet({authedUser, id:tweet.id, hasLiked:tweet.hasLiked}))
   }
+
   render(){
     const {tweet} = this.props
 
@@ -22,9 +35,10 @@ class Tweet extends Component {
     if (tweet=== null){
       return(<p>Tweet Not Available</p>)
     }
-    const {avatar,name, text,parent, likes, hasLiked,replies, timestamp} = tweet
+    const {avatar,name, text,parent, likes, hasLiked,replies,id,timestamp} = tweet
     return(
-      <div className="tweet">
+      this.state.parent? <Navigate to ={`/tweet/${this.state.parentID}`}/>:
+      <Link className="tweet" to={`/tweet/${tweet.id}`}>
         <img className='avatar'
         src={avatar}
         alt={`Avatar of ${name}`}/>
@@ -32,7 +46,7 @@ class Tweet extends Component {
         <span>{name}</span>
         <span>{formatDate(timestamp)}</span>
         {parent?
-        <span className="replying-to">Replying to @{parent.author}</span>:<div></div>
+        <span className="replying-to" onClick = {(e)=>this.toParent(e,parent.id)}>Replying to @{parent.author}</span>:<div></div>
       }
       <span>
       <p>{text}</p>
@@ -54,8 +68,7 @@ class Tweet extends Component {
       </div>
       </div>
 
-      </div>
-
+      </Link>
 
 
     )
